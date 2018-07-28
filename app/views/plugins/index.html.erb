@@ -1,0 +1,7 @@
+<h1>Plugins</h1>
+<%= link_to 'New Plugin', new_plugin_path %>
+<ul>
+  <% @plugins.each do |plugin| %>
+    <li><%= link_to plugin.name, plugin_path(plugin) %></li>
+  <% end %>
+</ul>
