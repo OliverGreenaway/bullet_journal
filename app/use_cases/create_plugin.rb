@@ -3,9 +3,9 @@ class CreatePlugin
 
   attr_reader :plugin
 
-  def initialize(plugin:, name:)
+  def initialize(plugin:, params:)
     @plugin = plugin
-    @name = name
+    @name = params[:name]
   end
 
   def perform

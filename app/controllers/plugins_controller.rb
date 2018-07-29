@@ -13,7 +13,7 @@ class PluginsController < ApplicationController
   def show; end
 
   def update
-    update_plugin = UpdatePlugin.perform(plugin: @plugin, name: plugin_params[:name])
+    update_plugin = UpdatePlugin.perform(plugin: @plugin, params: update_plugin_params, )
 
     if update_plugin.success?
       redirect_to plugin_path(@plugin)
@@ -25,7 +25,7 @@ class PluginsController < ApplicationController
   def destroy; end
 
   def create
-    create_plugin = CreatePlugin.perform(plugin: @plugin, name: plugin_params[:name])
+    create_plugin = CreatePlugin.perform(plugin: @plugin, params: create_plugin_params)
 
     if create_plugin.success?
       redirect_to plugin_path(@plugin)
@@ -36,8 +36,12 @@ class PluginsController < ApplicationController
 
   private
 
-  def plugin_params
+  def create_plugin_params
     params.require(:plugin).permit(:name)
+  end
+
+  def update_plugin_params
+    params.require(:plugin).permit(:name, :html_file_url, :javascript_file_url, :css_file_url)
   end
 
   def load_resource
@@ -53,6 +57,8 @@ class PluginsController < ApplicationController
   end
 
   def set_s3_direct_post
-    @s3_direct_post = S3_BUCKET.presigned_post(key: "plugins/#{SecureRandom.uuid}/${filename}", success_action_status: '201', acl: 'public-read')
+    if @plugin.persisted?
+      @s3_direct_post = S3_BUCKET.presigned_post(key: "plugins/#{@plugin.s3_ref}/${filename}", success_action_status: '201', acl: 'public-read')
+    end
   end
 end
