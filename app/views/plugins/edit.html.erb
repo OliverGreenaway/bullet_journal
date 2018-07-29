@@ -3,6 +3,8 @@
 <%= link_to 'Back', plugin_path(@plugin) %>
 <%= link_to 'All Plugins', plugins_path %>
 
-<%= form_for(@plugin, url: plugin_path(@plugin), html: {method: :put}) do |f| %>
-  <%= render partial: "form", locals: {f: f, submit: 'Update'} %>
+<%= form_for(@plugin, url: plugin_path(@plugin), html: {method: :put, class: "direct-upload", data: { 'form-data' => (@s3_direct_post.fields), 'url' => @s3_direct_post.url, 'host' => URI.parse(@s3_direct_post.url).host }}) do |f| %>
+  <%= render partial: "form", locals: {f: f} %>
+  <%= render partial: "file_upload", locals: {f: f} %>
+  <%= f.submit 'Update' %>
 <% end %>

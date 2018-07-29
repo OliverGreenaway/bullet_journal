@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180728135357) do
+ActiveRecord::Schema.define(version: 20180729024609) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,6 +20,9 @@ ActiveRecord::Schema.define(version: 20180728135357) do
     t.string "s3_ref"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "html_file_url"
+    t.string "javascript_file_url"
+    t.string "css_file_url"
   end
 
 end

@@ -1,5 +1,6 @@
 <h1>Create Plugin</h1>
 <%= link_to 'Back', plugins_path %>
 <%= form_for(@plugin, url: plugins_path) do |f| %>
-  <%= render partial: "form", locals: {f: f, submit: 'Create'} %>
+  <%= render partial: "form", locals: {f: f} %>
+  <%= f.submit 'Create' %>
 <% end %>

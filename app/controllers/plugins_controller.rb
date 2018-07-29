@@ -2,6 +2,7 @@ class PluginsController < ApplicationController
   before_action :load_resource, only: %i[edit show update destroy]
   before_action :load_all_resources, only: %i[index]
   before_action :create_resource, only: %i[new create]
+  before_action :set_s3_direct_post, only: %i[edit update]
 
   def index; end
 
@@ -49,5 +50,9 @@ class PluginsController < ApplicationController
 
   def create_resource
     @plugin = Plugin.new
+  end
+
+  def set_s3_direct_post
+    @s3_direct_post = S3_BUCKET.presigned_post(key: "plugins/#{SecureRandom.uuid}/${filename}", success_action_status: '201', acl: 'public-read')
   end
 end
