@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+gem 'aws-sdk', '~> 2'
 gem 'pg', '>= 0.18', '< 2.0'
 gem 'puma', '~> 3.7'
 gem 'rails', '~> 5.1.6'
