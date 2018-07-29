@@ -1,32 +1,37 @@
 class PluginsController < ApplicationController
-  before_action :load_resource, only: [:edit, :show, :update, :destroy]
-  before_action :load_all_resources, only: [:index]
-  before_action :create_resource, only: [:new, :create]
+  before_action :load_resource, only: %i[edit show update destroy]
+  before_action :load_all_resources, only: %i[index]
+  before_action :create_resource, only: %i[new create]
 
   def index; end
+
   def new; end
+
   def edit; end
+
   def show; end
-  def update; end
+
+  def update
+    update_plugin = UpdatePlugin.perform(plugin: @plugin, name: plugin_params[:name])
+
+    if update_plugin.success?
+      redirect_to plugin_path(@plugin)
+    else
+      render :edit
+    end
+  end
+
   def destroy; end
 
   def create
-    @plugin.name = plugin_params[:name]
+    create_plugin = CreatePlugin.perform(plugin: @plugin, name: plugin_params[:name])
 
-    @plugin.s3_ref = @plugin.name.downcase               # remove Uppercase characters
-                                 .gsub(/[_.,]/,' ')      # keep spacing characters by converting to whitespace
-                                 .gsub(/[^0-9a-z ]/, '') # remove unwanted characters
-                                 .strip                  # strip any surrounding whitespace
-                                 .gsub(' ','-')          # convert whitespace to dashes
-
-    if @plugin.valid?
-      @plugin.save
+    if create_plugin.success?
       redirect_to plugin_path(@plugin)
     else
       render :new
     end
   end
-
 
   private
 

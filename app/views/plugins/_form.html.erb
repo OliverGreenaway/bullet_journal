@@ -1,0 +1,4 @@
+<%= f.label :name %>
+<%= f.text_field :name %>
+<%= render 'shared/form_error', locals: {errors: @plugin.errors, attr: :name} %>
+<%= f.submit submit %>

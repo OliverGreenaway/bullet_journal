@@ -1,7 +1,5 @@
 <h1>Create Plugin</h1>
 <%= link_to 'Back', plugins_path %>
 <%= form_for(@plugin, url: plugins_path) do |f| %>
-  <%= f.label :name %>
-  <%= f.text_field :name %>
-  <%= f.submit 'Create' %>
+  <%= render partial: "form", locals: {f: f, submit: 'Create'} %>
 <% end %>

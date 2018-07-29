@@ -1,8 +1,8 @@
 <h1>Edit <%= @plugin.name %></h1>
+
 <%= link_to 'Back', plugin_path(@plugin) %>
 <%= link_to 'All Plugins', plugins_path %>
+
 <%= form_for(@plugin, url: plugin_path(@plugin), html: {method: :put}) do |f| %>
-  <%= f.label :name %>
-  <%= f.text_field :name %>
-  <%= f.submit 'Update' %>
+  <%= render partial: "form", locals: {f: f, submit: 'Update'} %>
 <% end %>

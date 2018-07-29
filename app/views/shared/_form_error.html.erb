@@ -1,0 +1,5 @@
+<% if attr_errors = locals[:errors].messages[locals[:attr]] %>
+  <% attr_errors.each do |message| %>
+    <span class="form_error"><%= message %></span><br>
+  <% end %>
+<% end %>
