@@ -10,7 +10,14 @@ class PluginsController < ApplicationController
 
   def edit; end
 
-  def show; end
+  def show
+    if url = @plugin.html_file_url
+      @html_content = HTTParty.get("https:#{url}")
+    end
+    if url = @plugin.css_file_url
+      @css_content = HTTParty.get("https:#{url}")
+    end
+  end
 
   def update
     update_plugin = UpdatePlugin.perform(plugin: @plugin, params: update_plugin_params, )
@@ -58,7 +65,10 @@ class PluginsController < ApplicationController
 
   def set_s3_direct_post
     if @plugin.persisted?
-      @s3_direct_post = S3_BUCKET.presigned_post(key: "plugins/#{@plugin.s3_ref}/${filename}", success_action_status: '201', acl: 'public-read')
+      @s3_direct_post = S3_BUCKET.presigned_post(
+                                  key: "plugins/#{@plugin.s3_ref}/${filename}",
+                                  success_action_status: '201',
+                                  acl: 'public-read')
     end
   end
 end

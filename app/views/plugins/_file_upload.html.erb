@@ -1,12 +1,12 @@
 <div class="field">
   <%= f.label 'HTML file' %><br>
-  <%= f.file_field :html_file_url %>
+  <%= f.file_field :html_file_url, accept: 'text/html' %>
 </div>
 <div class="field">
   <%= f.label 'Javascript file' %><br>
-  <%= f.file_field :javascript_file_url %>
+  <%= f.file_field :javascript_file_url, accept: 'application/javascript' %>
 </div>
 <div class="field">
   <%= f.label 'CSS file' %><br>
-  <%= f.file_field :css_file_url %>
+  <%= f.file_field :css_file_url, accept: 'text/css' %>
 </div>

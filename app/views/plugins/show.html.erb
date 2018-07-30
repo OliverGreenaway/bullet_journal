@@ -3,3 +3,18 @@
 <%= link_to 'All Plugins', plugins_path %>
 
 <p>S3 Ref: <%= @plugin.s3_ref %></p>
+
+<h3>Plugin:</h3>
+<div id='scoped-content'>
+  <% if @plugin.css_file_url %>
+    <style type="text/css" scoped>
+      <%= @css_content.html_safe %>
+    </style>
+  <% end %>
+  <% if @plugin.javascript_file_url %>
+    <%= javascript_include_tag @plugin.javascript_file_url %>
+  <% end %>
+  <% if @plugin.html_file_url %>
+    <%= @html_content.html_safe %>
+  <% end %>
+</div>

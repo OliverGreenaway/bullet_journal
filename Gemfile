@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'aws-sdk', '~> 2'
+gem 'httparty'
 gem 'jquery-rails'
 gem 'pg', '>= 0.18', '< 2.0'
 gem 'puma', '~> 3.7'
